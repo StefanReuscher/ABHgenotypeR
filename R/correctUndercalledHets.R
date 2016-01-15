@@ -9,7 +9,7 @@
 #' @return A genotype object in which undercalled heterozygous sites are
 #'   corrected if both flanking alleles match.
 #'
-#' @examples corrUndHetsGenos <- correctUndercalledHets(genotypes, maxHapLength = 3)
+#' @examples \dontrun{corrUndHetsGenos <- correctUndercalledHets(genotypes, maxHapLength = 3)}
 
 #' @export
 correctUndercalledHets <- function(inputGenos = "genotypes",
