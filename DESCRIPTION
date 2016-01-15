@@ -9,8 +9,10 @@ Description: Easy to use function to visualize GBS marker data
     from biparental populations. Useful for both analyzing and
     presenting genotypes in the ABH format. Makes full use of ggplot2.
 License: What license is it under?
+URL:  http://github.com/StefanReuscher/ABHgenotypeR
+BugReports: http://github.com/StefanReuscher/ABHgenotypeR/issues
 LazyData: TRUE
-Imports: 
+Imports:
     ggplot2,
     reshape2,
     grid
