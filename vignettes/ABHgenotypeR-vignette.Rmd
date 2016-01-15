@@ -1,0 +1,161 @@
+---
+title: "ABHGenotypeR"
+author: "Tomoyuki Furuta and Stefan Reuscher"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(ggplot2)
+library(reshape2)
+```
+
+## Introduction
+
+The `ABHgenotypeR` package provides simple imputation, error-correction and plotting capacities for genotype data. The function in this package were initially developed for the GBS/QTL analysis pipeline described in:
+
+*Furuta, Reuscher et. al., 2016 Adaption genotyping by sequencing for rice F2
+populations. BMC Genomics XYZ*
+
+
+The `ABHgenotypeR` package is supposed to serve as an intermediate but independent analysis tool between the TASSEL GBS pipeline and the `qtl` package. `ABHgenotypeR` provides functionalities not found in either TASSEL or `qtl` in addition to visualization of genotypes as "graphical genotypes". 
+
+
+## An example workflow
+
+Load `ABHgenotypeR`.
+```{r}
+library(ABHgenotypeR)
+```
+
+`ABHgenotypeR` requires genotypes encoded as ABHN, whereas A and B denote homozygous genotypes, H denotes heterozygous genotypes and N denotes missing data. Typical data sources can be the TASSEL GenotypesToABHPlugin or data from other genotyping systems as long as the input format conforms to the "csvs" format for genotypes defined in the `qtl` package. If your data comes from the TASSEL GenotypesToABHPlugin it should be in the correct format. Otherwise please refer to the included test dataset for correct formating.
+
+### Reading in genotype files
+
+```{r readInChunk,}
+# Start with reading in genotype data:
+
+genotypes <- readABHgenotypes(system.file("extdata",
+                                          "preprefall025TestData.csv",
+                                          package = "ABHgenotypeR"),
+                              nameA = "NB", nameB = "OL")
+```
+This will load the example dataset inlcuded in the package. The dataset contains genotypes from 50 F2 individuals from a cross of the elite rice cultivar Oryza sativa Nipponbare (NB) and the african wild rice Oryza longistaminata (OL). The  file is directly taken from the output of the GenosToABHPlugin and as most real world datasets contains genotyping errors and missing data.
+
+The above command will create a genotype list object which stores all the information from the input file.
+
+### The genotype list object
+
+Genotypes and associated informations are stored in an R list object, hereafter called genotype list. There are seven items in the list:
+
+* ABHmatrix The actual genotypes matrix including dimension names
+* chrom Chromosome number from the second line of the input file. Must be integer which means no X-chromosome for now. Sorry animal people.
+* marker_names Taken from the first line of the input file.
+* individual_names Take from the first column of the input file.
+* pos Physical position in bp of each marker. By default extracted from the marker name by removing all characters before and including an underscore and expecting the remaining part to be an integer referring to the position in bp on the respective chromosome. e.g S1_123456 -> 123456 bp on chromosome 1.
+* nameA and nameB Name of parent A and parent B. Can be set by the user
+
+
+
+### Creating graphical genotypes
+Being able to visualize all genotypes across a whole population can give hints about population structure or possible errors.
+
+```{r, fig.show = 'hold', fig.width = 7, fig.cap = "Fig.  1: raw genotype data"}
+# Genotypes can be plotted by:
+plotGenos(genotypes)
+```
+
+The plotGenos() function provides options to plot only selectes markers, individuals or chromosomes and further allows the user to choose the colors assigned to each of the four possible states (ABHN). Advanced users can take full advantage of the flexibility and power of `ggplot2` by assigning the output of plotGenos(), which will create a ggplot object for further manipulation.
+
+```{r}
+# Assign the output
+plottedGenos <- plotGenos(genotypes)
+
+# bigger axis labels
+plottedGenos <- plottedGenos + theme(axis.text = element_text(size = 14),
+                                     legend.position = "none")
+```
+
+A you can see from the ouput there are some markers which have a high percentage of missing data and/or tend to be obviously wrong, e.g a single A in a stretch of H. To correct  this `ABHgenotypeR` contains a set of function that change genotypes based on their direct neighbours.
+
+### Imputation of missing genotypes
+As a first step to improve GBS genotypes the user might want to impute missing data. While both TASSEL and `qtl` provide very sophisticated imputation algorithms `ABGgenotypR` uses a simpler approach. Imputation of missing data is performed for each individual based on flanking alleles. Basically, if the genotypes left and right of a stretch of missing data are identical the genotypes are filled in. Imputation is performed by:
+
+```{r}
+postImpGenotypes <- imputeByFlanks(genotypes)
+```
+Ths will create a new genotype list object with imputed data. The imputeByFlanks() function (and the other genotype changing functions) will also print a report to the console which tells you how absolute and relative genotype numbers changed.
+
+This report can be also be obtained by running:
+
+```{r, eval = FALSE}
+reportGenos(postImpGenotypes)
+```
+
+Another way to compare the outcome of imputation is to produce graphical genotypes of both datasets using the plotGenos() function. Here only the first chromosome is shown.
+
+```{r, fig.show = 'hold', fig.width = 7, fig.cap = "Fig. 2: Raw (top) and imputed (bottom) genotypes from chromosome 1."}
+# Genotypes can be plotted by:
+plotGenos(genotypes, chromToPlot = 1)
+plotGenos(postImpGenotypes,chromToPlot = 1)
+```
+
+### Error corrections
+In a similar fashion obvious genotype errors may be corrected. The only differencs is that the user can supply a maximum haplotype length. This sets the maximum stretch of uniform alleles that could be attributed to error. High values here might correct series of wrongly called alleles but will remove recombination events which resulted in short haplotypes. Small values here will potentially retain smaller recombination events, but might leave errors.
+To choose a values it is suggested to examine your data, e.g. with the `plotGenos()` function, and think about population structure and marker density. In our case we decided that a minimum haplotype length of 3 yields acceptable results.
+
+Error correction is performed using two functions, `correctUnderCalledHets()` and `correctStretches()`. The fact that there are two functions is partially due to the developmental history of this package but allows for greater flexibility to correct different types of errors.
+
+`correctUnderCalledHets()` addresses the particular fact that genotyping methods that rely on read alignements (like GBS) tend to miss out on heterozygous sites, since they require reads from both alleles. `correctUnderCalledHets()` changes alleles from A or B to H if they are flanked by H. Running `correctUnderCalledHets()` with maxHapLength = 3 will change HAAAH, but not HAAAAH, implying that a 4 consecutive A might be a realistic genotype.
+
+`correctStretches()` addresses all other genotype errors, so it will change H to A or B and A to B and B to A when appropriate. It will also change N to A, B or H making it partially redundant with `imputeByFlanks()`. The main difference being is that `correctStretches()` allows the user to specify `maxHapLength` whereas `imputeByFlanks()` recognizes N stretches of arbitrary size.
+
+Both function will report the number of alleles before and after running them.
+
+```{r}
+#remove undercalled heterozygous alleles
+ErrCorr1Genotypes <- correctUndercalledHets(postImpGenotypes, maxHapLength = 3)
+
+#remove other errors
+ErrCorr2Genotypes <- correctStretches(ErrCorr1Genotypes, maxHapLength = 3)
+```
+After removing errors both genotype list objects can be compared using `plotGenos()`.
+
+```{r, fig.show = 'hold', fig.width = 7, fig.cap = "Fig. 3: Genotypes with corrected undercalled heterozygous (top) and other errors (bottom) from chromosome 1."}
+plotGenos(ErrCorr1Genotypes, chromToPlot = 1)
+plotGenos(ErrCorr2Genotypes,chromToPlot = 1)
+```
+
+
+###Exporting results
+As evident by the graphical genotypes almost all putatively wrong genotypes have been changed into more sensible ones. Once you are confident that your genotype data is of sufficient quality to allow QTL analysis or GWAS you can export the genotypes back to a .csv file for further analyses, for example using the `qtl` package
+
+
+```{r, eval = FALSE}
+writeABHgenotypes(ErrCorr2Genotypes, outfile = "path/to/dir")
+```
+
+##Other functions
+The `ABHgenotypeR` package offers two additional visualizaton options that we found useful and that are currently lacking in both TASSEL and `qtl`.
+
+The `plotMarkerDensity()` function allows plotting the density of markers along the physical positions of the chromosomes. This might be usefull to assess marker coverage in GBS experiments.
+
+```{r, fig.show = 'hold', fig.width = 7, fig.height = 7, fig.cap = "Fig. 4: Marker Density"}
+plotMarkerDensity(genos = ErrCorr2Genotypes)
+```
+
+The `plotAlleleFreq()` function allows plotting of parental allele frequencies along the physical position of the chromosomes. This is usefull to identify potential preferential transmission in population.
+
+```{r, fig.show = 'hold', fig.width = 7, fig.height = 7, fig.cap = "Fig. 5:Parental allele frequencies"}
+plotAlleleFreq(genos = ErrCorr2Genotypes)
+```
+
+##Concluding remarks
+to be written...
