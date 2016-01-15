@@ -1,0 +1,20 @@
+Package: ABHgenotypeR
+Type: Package
+Title: Easy Visualization of ABH Genotypes
+Version: 0.1
+Date: 2015-12-01
+Authors@R: person("Stefan", "Reuscher", email = "reuscher.stefan@gmail.com",
+    role = c("aut", "cre"))
+Description: Easy to use function to visualize GBS marker data
+    from biparental populations. Useful for both analyzing and
+    presenting genotypes in the ABH format. Makes full use of ggplot2.
+License: What license is it under?
+LazyData: TRUE
+Imports: 
+    ggplot2,
+    reshape2,
+    grid
+RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
