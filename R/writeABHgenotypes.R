@@ -2,10 +2,11 @@
 #'
 #' @param genos The output of readABHgenotypes or one of the impuation/error
 #'   correction functions.
+#' @param outfile The path and filename of the output file.
 #'
 #' @return A file which can be used in R/qtl or elsewhere.
 #'
-#' @examples writeABHgenotypes(genotypes, outfile = "./outfile_name.csv")
+#' @examples \dontrun{writeABHgenotypes(genotypes, outfile = "./outfile_name.csv")}
 
 #' @export
 writeABHgenotypes <- function(genos = "genotypes",

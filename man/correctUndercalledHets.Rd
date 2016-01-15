@@ -22,6 +22,6 @@ A genotype object in which undercalled heterozygous sites are
 Correct undercalled heterozygous sites based on flanking alleles.
 }
 \examples{
-corrUndHetsGenos <- correctUndercalledHets(genotypes, maxHapLength = 3)
+\dontrun{corrUndHetsGenos <- correctUndercalledHets(genotypes, maxHapLength = 3)}
 }
 

@@ -34,10 +34,10 @@ The input files should be a .csv file holding genotypes as specified by
  as shown in the examples.
 }
 \examples{
-genotypes <- readABHgenotypes("./genotypes.csv", "NB", "OL")
+\dontrun{genotypes <- readABHgenotypes("./genotypes.csv", "NB", "OL")}
 
- otherGenotypes <- readABHgenotypes("./otherGenotypes.csv", readPos = FALSE)
+ \dontrun{otherGenotypes <- readABHgenotypes("./otherGenotypes.csv", readPos = FALSE)}
  #arbitrary position to keep marker order intact
- otherGenotypes$pos <- 1:length(otherGenotypes$marker_names)
+ \dontrun{therGenotypes$pos <- 1:length(otherGenotypes$marker_names)}
 }
 

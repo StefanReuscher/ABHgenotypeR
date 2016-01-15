@@ -7,7 +7,7 @@
 imputeByFlanks(inputGenos = "genotypes")
 }
 \arguments{
-\item{genos}{A genotypes list object.}
+\item{inputGenos}{A genotypes list object.}
 }
 \value{
 A genotype object in which missing data is imputed based on flanking
@@ -17,6 +17,6 @@ A genotype object in which missing data is imputed based on flanking
 Impute missing genotypes based on flanking alleles
 }
 \examples{
-imputedGenos <- imputeByFlanks(genotypes)
+\dontrun{imputedGenos <- imputeByFlanks(genotypes)}
 }
 

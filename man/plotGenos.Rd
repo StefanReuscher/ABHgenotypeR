@@ -35,12 +35,12 @@ Graphical genotypes.
 Plot graphical genotypes.
 }
 \examples{
-plotGenos(genotypes)
+\dontrun{plotGenos(genotypes)}
 markerNames <- c("marker1", "marker2", "marker3")
 individualNames <- c("F2_100", "F2_101", "F2_102", "F2_103")
 someColors <- c("black", "red", "gold", "white")
-plotgenos(genotypes, markerNames, individualNames, 1:3, someColors)
+\dontrun{plotgenos(genotypes, markerNames, individualNames, 1:3, someColors)}
 
-p <- plotGenos(genotypes)
+\dontrun{p <- plotGenos(genotypes)}
 }
 

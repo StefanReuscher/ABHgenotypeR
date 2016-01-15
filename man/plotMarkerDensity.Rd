@@ -17,7 +17,7 @@ A plot of marker densities along the chromosomes. If the output is
 Plot the marker density along the chromosomes.
 }
 \examples{
-plotMarkerDensity(genotypes)
-p <- plotMarkerDensity(genotypes)
+\dontrun{plotMarkerDensity(genotypes)}
+\dontrun{p <- plotMarkerDensity(genotypes)}
 }
 

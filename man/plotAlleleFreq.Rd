@@ -18,7 +18,7 @@ A plot of parental allele frequencies along the chromosomes. If the
 Plot the  parental allele frequencies along the chromosomes.
 }
 \examples{
-plotAlleleFreq(genotypes)
-p <- plotAlleleFreq(genotypes)
+\dontrun{plotAlleleFreq(genotypes)}
+\dontrun{p <- plotAlleleFreq(genotypes)}
 }
 

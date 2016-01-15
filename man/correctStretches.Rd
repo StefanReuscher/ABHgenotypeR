@@ -22,6 +22,6 @@ A genotype object in which short miscalled stretches are
 Correct short miscalled stretches based on flanking alleles.
 }
 \examples{
-corrStretchGenos <- correctStretches(genotypes, maxHapLength = 3)
+\dontrun{corrStretchGenos <- correctStretches(genotypes, maxHapLength = 3)}
 }
 

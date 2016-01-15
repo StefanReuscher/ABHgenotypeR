@@ -18,11 +18,11 @@
 #'  on chromosome 1. If FALSE, pos is set to NULL and needs to be manually constructed
 #'  as shown in the examples.
 #'
-#' @examples genotypes <- readABHgenotypes("./genotypes.csv", "NB", "OL")
+#' @examples \dontrun{genotypes <- readABHgenotypes("./genotypes.csv", "NB", "OL")}
 #'
-#'  otherGenotypes <- readABHgenotypes("./otherGenotypes.csv", readPos = FALSE)
+#'  \dontrun{otherGenotypes <- readABHgenotypes("./otherGenotypes.csv", readPos = FALSE)}
 #'  #arbitrary position to keep marker order intact
-#'  otherGenotypes$pos <- 1:length(otherGenotypes$marker_names)
+#'  \dontrun{therGenotypes$pos <- 1:length(otherGenotypes$marker_names)}
 
 #' @export
 readABHgenotypes <- function(pathToABH, nameA = "A", nameB = "B", readPos = TRUE){

@@ -4,7 +4,7 @@
 #'
 #' @return Console output of the total an relative number of each allele.
 #'
-#' @examples reportGenos(preImpuation)
+#' @examples \dontrun{reportGenos(preImputation)}
 
 #' @export
 reportGenos <- function(genos1) {

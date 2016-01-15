@@ -16,6 +16,6 @@ Console output of the total an relative number of each allele.
 Report the total and relative number of each allele in a genotype object.
 }
 \examples{
-reportGenos(preImpuation)
+\dontrun{reportGenos(preImputation)}
 }
 

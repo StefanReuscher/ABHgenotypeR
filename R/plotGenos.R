@@ -15,13 +15,13 @@
 #'
 #' @return Graphical genotypes.
 #'
-#' @examples plotGenos(genotypes)
+#' @examples \dontrun{plotGenos(genotypes)}
 #' markerNames <- c("marker1", "marker2", "marker3")
 #' individualNames <- c("F2_100", "F2_101", "F2_102", "F2_103")
 #' someColors <- c("black", "red", "gold", "white")
-#' plotgenos(genotypes, markerNames, individualNames, 1:3, someColors)
+#' \dontrun{plotgenos(genotypes, markerNames, individualNames, 1:3, someColors)}
 #'
-#' p <- plotGenos(genotypes)
+#' \dontrun{p <- plotGenos(genotypes)}
 
 #' @export
 #' @import ggplot2
@@ -52,18 +52,16 @@ plotGenos <- function(genos = "genotypes",
 
   if(chromToPlot[1] != "all") ggt <- ggt[ggt$chrom %in% chromToPlot,]
 
+  index <- individual_names <- allele <- NULL #appease R cmd check
+
   ggplot(ggt, aes(x = index, y = individual_names,
                   fill = allele))+
-
     geom_tile()+
-
     scale_fill_manual(name = "genotypes",
                       values = c("A" = alleleColors[1], "B" = alleleColors[2],
                                  "H" = alleleColors[3], "N" = alleleColors[4]),
                       labels = c(genos$nameA, genos$nameB, "hetero", "n.d."))+
-
     facet_grid(.~chrom, scales = "free", space = "free_x")+
-
     xlab("marker")+
     ylab("individuals")+
     theme(text = element_text(size = textSize),

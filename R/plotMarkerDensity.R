@@ -5,8 +5,8 @@
 #' @return A plot of marker densities along the chromosomes. If the output is
 #'   assigned a name a ggplot2 object is returned for further manipulation.
 #'
-#' @examples plotMarkerDensity(genotypes)
-#' p <- plotMarkerDensity(genotypes)
+#' @examples \dontrun{plotMarkerDensity(genotypes)}
+#' \dontrun{p <- plotMarkerDensity(genotypes)}
 
 #' @export
 plotMarkerDensity <- function(genos = "genotypes"){
@@ -16,6 +16,8 @@ plotMarkerDensity <- function(genos = "genotypes"){
 
   SNPdistr <- cbind.data.frame("chrom" = genos$chrom,
                                "pos" = genos$pos)
+
+  pos <- NULL #appease R cmd check
 
   ggplot(data = SNPdistr, aes(x = pos/1000000))+
     stat_bin(binwidth = 1, drop = TRUE, geom = "line", size = 0.75)+

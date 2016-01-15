@@ -1,11 +1,11 @@
 #' Impute missing genotypes based on flanking alleles
 #'
-#' @param genos A genotypes list object.
+#' @param inputGenos A genotypes list object.
 #'
 #' @return A genotype object in which missing data is imputed based on flanking
 #'   alleles. Any number of N is replaced by either A, B or N if the alleles which flank the N match
 #'
-#' @examples imputedGenos <- imputeByFlanks(genotypes)
+#' @examples \dontrun{imputedGenos <- imputeByFlanks(genotypes)}
 
 #' @export
 imputeByFlanks <- function (inputGenos = "genotypes") {

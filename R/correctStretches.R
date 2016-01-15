@@ -9,7 +9,7 @@
 #' @return A genotype object in which short miscalled stretches are
 #'   corrected if both flanking alleles match.
 #'
-#' @examples corrStretchGenos <- correctStretches(genotypes, maxHapLength = 3)
+#' @examples \dontrun{corrStretchGenos <- correctStretches(genotypes, maxHapLength = 3)}
 
 #' @export
 correctStretches <- function(inputGenos = "genotypes",
