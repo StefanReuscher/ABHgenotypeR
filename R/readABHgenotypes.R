@@ -16,7 +16,7 @@
 #'  will be set to N.
 #'  If readPos = TRUE (default) marker names must conform to S1_123456 meaning 123456 bp
 #'  on chromosome 1. If FALSE, pos is set to NULL and needs to be manually constructed
-#'  as shown in the examples.
+#'  as shown in the examples. Note that this might throw off some plotting function.
 #'
 #' @examples \dontrun{genotypes <- readABHgenotypes("./genotypes.csv", "NB", "OL")}
 #'
