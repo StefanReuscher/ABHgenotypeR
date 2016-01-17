@@ -63,6 +63,11 @@ correctUndercalledHets <- function(inputGenos = "genotypes",
   outputGenos$ABHmatrix <- geno_correctedHets
   dimnames(outputGenos$ABHmatrix) <- list("individual_names" = inputGenos$individual_names,
                                        "marker_names" = inputGenos$marker_names)
+
+  reportGenos(inputGenos)
+  cat(paste("\n"))
+  reportGenos(outputGenos)
+
   outputGenos
   }
 

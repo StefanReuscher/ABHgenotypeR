@@ -14,7 +14,7 @@ BugReports: http://github.com/StefanReuscher/ABHgenotypeR/issues
 LazyData: TRUE
 Imports:
     ggplot2,
-    reshape2,
+    reshape2
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown

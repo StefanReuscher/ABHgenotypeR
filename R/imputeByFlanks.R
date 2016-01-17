@@ -51,5 +51,6 @@ imputeByFlanks <- function (inputGenos = "genotypes") {
   reportGenos(inputGenos)
   cat(paste("\n"))
   reportGenos(outputGenos)
+
   outputGenos
 }
