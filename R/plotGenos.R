@@ -24,17 +24,21 @@
 #' \dontrun{p <- plotGenos(genotypes)}
 
 #' @export
-#' @import ggplot2
 plotGenos <- function(genos = "genotypes",
                       markerToPlot = "all",
                       individualsToPlot = "all",
                       chromToPlot = "all",
                       alleleColors = c("#56B4E9","#E69F00",
                                        "#009E73", "#000000"),
-                      textSize = 12) {
+                      textSize = 12,
+                      showMarkerNames = FALSE,
+                      showIndividualNames = FALSE) {
 
-  cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73",
-                  "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  if(showMarkerNames == TRUE) {textX <- element_text(colour = "black", angle = 90)}
+  else{textX <- element_blank()}
+
+  if(showIndividualNames == TRUE) {textY <- element_text(colour = "black")}
+  else{textY <- element_blank()}
 
   ggt <- data.frame(t(genos$ABHmatrix), stringsAsFactors = FALSE, check.names = FALSE)
 
@@ -52,9 +56,9 @@ plotGenos <- function(genos = "genotypes",
 
   if(chromToPlot[1] != "all") ggt <- ggt[ggt$chrom %in% chromToPlot,]
 
-  index <- individual_names <- allele <- NULL #appease R cmd check
+  marker_names <- individual_names <- allele <- NULL #appease R cmd check
 
-  ggplot(ggt, aes(x = index, y = individual_names,
+  ggplot(ggt, aes(x = marker_names, y = individual_names,
                   fill = allele))+
     geom_tile()+
     scale_fill_manual(name = "genotypes",
@@ -65,7 +69,8 @@ plotGenos <- function(genos = "genotypes",
     xlab("marker")+
     ylab("individuals")+
     theme(text = element_text(size = textSize),
-          axis.text = element_blank(),
+          axis.text.x = textX,
+          axis.text.y = textY,
           axis.ticks = element_blank(),
           panel.grid = element_blank(),
           panel.background = element_blank(),

@@ -39,9 +39,8 @@ library(ABHgenotypeR)
 
 ### Reading in genotype files
 
-```{r readInChunk,}
+```{r readInChunk}
 # Start with reading in genotype data:
-
 genotypes <- readABHgenotypes(system.file("extdata",
                                           "preprefall025TestData.csv",
                                           package = "ABHgenotypeR"),
@@ -72,14 +71,14 @@ Being able to visualize all genotypes across a whole population can give hints a
 plotGenos(genotypes)
 ```
 
-The plotGenos() function provides options to plot only selectes markers, individuals or chromosomes and further allows the user to choose the colors assigned to each of the four possible states (ABHN). Advanced users can take full advantage of the flexibility and power of `ggplot2` by assigning the output of plotGenos(), which will create a ggplot object for further manipulation.
+The plotGenos() function provides options to plot only selectes markers, individuals or chromosomes and further allows the user to choose the colors assigned to each of the four possible states (ABHN) and if axis labels are displayed. Advanced users can take full advantage of the flexibility and power of `ggplot2` by assigning the output of plotGenos(), which will create a ggplot object for further manipulation.
 
 ```{r}
 # Assign the output
 plottedGenos <- plotGenos(genotypes)
 
-# bigger axis labels
-plottedGenos <- plottedGenos + theme(axis.text = element_text(size = 14),
+# bold axis labels and no legend
+plottedGenos <- plottedGenos + theme(axis.text = element_text(face = "bold"),
                                      legend.position = "none")
 ```
 
@@ -99,7 +98,7 @@ This report can be also be obtained by running:
 reportGenos(postImpGenotypes)
 ```
 
-Another way to compare the outcome of imputation is to produce graphical genotypes of both datasets using the plotGenos() function. Here only the first chromosome is shown.
+Another way to compare the outcome of imputation is to produce graphical genotypes of both datasets using the plotGenos() function. Here only the first chromosome is shown. Direct comparisons of genotypes can be made with plotCompareGenos() functon explained later.
 
 ```{r, fig.show = 'hold', fig.width = 7, fig.cap = "Fig. 2: Raw (top) and imputed (bottom) genotypes from chromosome 1."}
 # Genotypes can be plotted by:
@@ -133,6 +132,15 @@ plotGenos(ErrCorr1Genotypes, chromToPlot = 1)
 plotGenos(ErrCorr2Genotypes,chromToPlot = 1)
 ```
 
+###Comparing two genotype matrices
+To quickly compare the results of the different functions in this package that manipulate genotypes, but also to compare the output of other imputation methods (e.g from TASSEL) the user can graphically compare two genotype matrices. This allows a quick glance at which genotypes differ in two otherwise identical matrices.
+
+```{r, fig.show = 'hold', fig.width = 7, fig.height = 4, fig.cap = "Fig. 4: Comparison of two genotype matrices"}
+plotCompareGenos(genotypes, ErrCorr2Genotypes, chromToPlot = 1:3)
+```
+
+The plotCompareGenos function also takes the same arguments as plotGenos() to look in more detail at 
+certain regions or individuals.
 
 ###Exporting results
 As evident by the graphical genotypes almost all putatively wrong genotypes have been changed into more sensible ones. Once you are confident that your genotype data is of sufficient quality to allow QTL analysis or GWAS you can export the genotypes back to a .csv file for further analyses, for example using the `qtl` package
@@ -147,15 +155,12 @@ The `ABHgenotypeR` package offers two additional visualizaton options that we fo
 
 The `plotMarkerDensity()` function allows plotting the density of markers along the physical positions of the chromosomes. This might be usefull to assess marker coverage in GBS experiments.
 
-```{r, fig.show = 'hold', fig.width = 7, fig.height = 7, fig.cap = "Fig. 4: Marker Density"}
+```{r, fig.show = 'hold', fig.width = 7, fig.height = 7, fig.cap = "Fig. 5: Marker Density"}
 plotMarkerDensity(genos = ErrCorr2Genotypes)
 ```
 
 The `plotAlleleFreq()` function allows plotting of parental allele frequencies along the physical position of the chromosomes. This is usefull to identify potential preferential transmission in population.
 
-```{r, fig.show = 'hold', fig.width = 7, fig.height = 7, fig.cap = "Fig. 5:Parental allele frequencies"}
+```{r, fig.show = 'hold', fig.width = 7, fig.height = 7, fig.cap = "Fig. 6:Parental allele frequencies"}
 plotAlleleFreq(genos = ErrCorr2Genotypes)
 ```
-
-##Concluding remarks
-to be written...

@@ -7,7 +7,7 @@
 plotGenos(genos = "genotypes", markerToPlot = "all",
   individualsToPlot = "all", chromToPlot = "all",
   alleleColors = c("#56B4E9", "#E69F00", "#009E73", "#000000"),
-  textSize = 12)
+  textSize = 12, showMarkerNames = FALSE, showIndividualNames = FALSE)
 }
 \arguments{
 \item{genos}{The output of readABHgenotypes}
