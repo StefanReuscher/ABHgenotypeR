@@ -8,6 +8,8 @@
 #'
 #' @docType package
 #' @name ABHgenotypeR
-#'
+#' @import ggplot2
+#' @import utils
+
 NULL
 #> NULL

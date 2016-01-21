@@ -29,11 +29,13 @@ values to use for differnt and identical markers.
 Defaults to black and orange.}
 
 \item{textSize}{The size of all text elements in the plot. Useful for making a
-nice plot. Defaults to 12.
-@param showMarkerNames Show the marker names along the x axis. This and
+nice plot. Defaults to 12.}
+
+\item{showMarkerNames}{Show the marker names along the x axis. This and
 showIndividualnames are useful when you display only a few markers and
-want them labeled. Defaults to FALSE.
-@param showIndividualNames Show individual names along the y axis.}
+want them labeled. Defaults to FALSE.}
+
+\item{showIndividualNames}{Show individual names along the y axis.}
 }
 \value{
 A graphical comparison of genotypes.

@@ -27,6 +27,12 @@ green and black.}
 
 \item{textSize}{The size of all text elements in the plot. Useful for making a
 nice plot. Defaults to 12.}
+
+\item{showMarkerNames}{Show the marker names along the x axis. This and
+showIndividualNames are useful when you display only a few markers and
+want them labeled. Defaults to FALSE.}
+
+\item{showIndividualNames}{Show individual names along the y axis.}
 }
 \value{
 Graphical genotypes.

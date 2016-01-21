@@ -14,10 +14,10 @@
 #'   Defaults to black and orange.
 #' @param textSize The size of all text elements in the plot. Useful for making a
 #'  nice plot. Defaults to 12.
-#'  @param showMarkerNames Show the marker names along the x axis. This and
+#' @param showMarkerNames Show the marker names along the x axis. This and
 #'  showIndividualnames are useful when you display only a few markers and
 #'  want them labeled. Defaults to FALSE.
-#'  @param showIndividualNames Show individual names along the y axis.
+#' @param showIndividualNames Show individual names along the y axis.
 #'
 #' @return A graphical comparison of genotypes.
 #'
