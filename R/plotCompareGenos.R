@@ -45,7 +45,7 @@ plotCompareGenos <- function(genos_1 = "genotypes_1",
 
   comp_df <- as.data.frame(t(comp*1)) #logical -> numerical -> df
   comp_df$chrom <- genos_1$chrom
-  comp_df$marker_names <- genos_1$marker_names
+  comp_df$marker_names <- factor(genos_1$marker_names, levels = unique(genos_1$marker_names))
 
   comp_df <- reshape2::melt(comp_df,
                             id.vars = c("marker_names","chrom"),

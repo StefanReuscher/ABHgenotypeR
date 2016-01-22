@@ -1,2 +1,2 @@
-# ABHgenotypeR V1.0
+# ABHgenotypeR V1.0.0
 Release version
