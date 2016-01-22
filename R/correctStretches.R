@@ -45,7 +45,7 @@ correctStretches <- function(inputGenos = "genotypes",
   }
 
   #in geno_raw replace errors
-  for(chrom_count in 1:12) {
+  for(chrom_count in unique(inputGenos$chrom)) {
     geno_temp <- geno_raw[,inputGenos$chrom == chrom_count]
     for (row_count in 1:nrow(geno_correctedErr)) {
       for(HapLen in 1:length(patExprA)) { #replace with A

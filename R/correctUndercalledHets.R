@@ -34,7 +34,7 @@ correctUndercalledHets <- function(inputGenos = "genotypes",
 
 
   #in geno_raw replace undercalled hets
-  for(chrom_count in 1:12) {
+  for(chrom_count in unique(inputGenos$chrom)) {
     geno_temp <- geno_raw[,inputGenos$chrom == chrom_count]
     for (row_count in 1:nrow(geno_correctedHets)) { #first replace in genotemp, then in geno_corrected
       for(HapLen in 1:length(patExprH)) {

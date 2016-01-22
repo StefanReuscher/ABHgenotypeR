@@ -17,7 +17,7 @@ imputeByFlanks <- function (inputGenos = "genotypes") {
                      ncol = ncol(geno_raw))
 
   #loop through chromosome
-  for(chrom_count in 1:12) {
+  for(chrom_count in unique(inputGenos$chrom)) {
     geno_temp <- geno_raw[,inputGenos$chrom == chrom_count]
     #loop through rows, replace Ns flanked by the same parent/het
     for (row_count in 1:nrow(geno_temp)){

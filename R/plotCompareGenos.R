@@ -65,8 +65,8 @@ plotCompareGenos <- function(genos_1 = "genotypes_1",
 
   ggplot(comp_df, aes(x = marker_names, y = individual_names,  fill = factor(comp)))+
     geom_tile()+
-    scale_fill_manual(values = CompColors,
-                      name = "genotype comparison",
+    scale_fill_manual(name = "genotype comparison",
+                      values = c("0" = CompColors[1], "1" = CompColors[2]),
                       labels = c("different","identical"))+
     facet_grid(.~chrom, scales = "free", space = "free_x")+
     ylab("individuals")+

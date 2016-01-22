@@ -62,6 +62,9 @@ plotGenos <- function(genos = "genotypes",
 
   marker_names <- individual_names <- allele <- NULL #appease R cmd check
 
+  ggt$individual_names <- factor(ggt$individual_names,
+                                     levels = rev(levels(ggt$individual_names)))
+
   ggplot(ggt, aes(x = marker_names, y = individual_names,
                   fill = allele))+
     geom_tile()+
