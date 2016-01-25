@@ -16,6 +16,11 @@ The `ABHgenotypeR` package is supposed to serve as an intermediate but independe
 Installation
 ------------
 
+Note:
+=====
+
+CRAN V1.0.0 contains a bug which missorts markers, install from git for now
+
 from CRAN:
 
 ``` r

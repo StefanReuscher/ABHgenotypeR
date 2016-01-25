@@ -9,8 +9,7 @@
 #' @docType package
 #' @name ABHgenotypeR
 #' @import ggplot2
-#' @imports grid
-#' @imports utils
+#' @import utils
 
 NULL
 #> NULL

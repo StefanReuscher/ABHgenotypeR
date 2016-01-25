@@ -1,8 +1,8 @@
 Package: ABHgenotypeR
 Type: Package
 Title: Easy Visualization of ABH Genotypes
-Version: 1.0.0
-Date: 2016-01-21
+Version: 1.0.1
+Date: 2016-01-25
 Authors@R: c(
   person("Stefan", "Reuscher", email = "reuscher.stefan@gmail.com",
   role = c("aut", "cre")),
@@ -16,7 +16,8 @@ BugReports: http://github.com/StefanReuscher/ABHgenotypeR/issues
 LazyData: TRUE
 Imports:
     ggplot2,
-    reshape2
+    reshape2,
+    utils
 RoxygenNote: 5.0.1
 Suggests: knitr,
     rmarkdown
