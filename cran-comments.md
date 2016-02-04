@@ -8,3 +8,6 @@ all with the most recent version of R and Rstudio as of Jan 21 2016.
 ##R CMD check results
 done via ctrl+shift+e
 no errors, warning or notes except the first time submission note
+
+#history
+V1.0.1 fixes a bug where marker were not sorted properly in the plot functions
