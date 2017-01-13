@@ -9,7 +9,7 @@ Introduction
 
 The `ABHgenotypeR` package provides simple imputation, error-correction and plotting capacities for genotype data. The function in this package were initially developed for the GBS/QTL analysis pipeline described in:
 
-*Furuta, Reuscher et. al., 2016 Adaption genotyping by sequencing for rice F2 populations. in revision with G3*
+*Furuta, Reuscher et. al., 2016 Adaption genotyping by sequencing for rice F2 populations. Genes, Genomes and Genetics*
 
 The `ABHgenotypeR` package is supposed to serve as an intermediate but independent analysis tool between the TASSEL GBS pipeline and the `qtl` package. `ABHgenotypeR` provides functionalities not found in either TASSEL or `qtl` in addition to visualization of genotypes as "graphical genotypes". Plotting is based on ggplot2.
 
